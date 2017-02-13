@@ -1,0 +1,84 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{% block form_widget %}
+    {% set beforeGlyphiconTransId = ("form."~id)|replace("_", ".")~".before_glyphicon" %}
+    {% set afterGlyphiconTransId = ("form."~id)|replace("_", ".")~".after_glyphicon" %}
+
+    {% if beforeGlyphiconTransId|trans != beforeGlyphiconTransId
+          or afterGlyphiconTransId|trans != afterGlyphiconTransId
+    %}
+        {{ block('bs_form_input_group') }}
+    {% else %}
+        {% if compound %}
+            {{ block('form_widget_compound') }}
+        {% else %}
+            {{ block('form_widget_simple') }}
+        {% endif %}
+    {% endif %}
+{% endblock form_widget %}
+
+{% block email_widget %}
+    {% set type = type|default('email') %}
+    {% set beforeGlyphiconTransId = ("form."~id)|replace("_", ".")~".before_glyphicon" %}
+    {% set afterGlyphiconTransId = ("form."~id)|replace("_", ".")~".after_glyphicon" %}
+
+    {% if beforeGlyphiconTransId|trans != beforeGlyphiconTransId
+          or afterGlyphiconTransId|trans != afterGlyphiconTransId
+    %}
+        {{ block('bs_form_input_group') }}
+    {% else %}
+        {{ block('form_widget_simple') }}
+    {% endif %}
+{% endblock email_widget %}
+
+{% block textarea_widget %}
+    {% set beforeGlyphiconTransId = ("form."~id)|replace("_", ".")~".before_glyphicon" %}
+    {% set afterGlyphiconTransId = ("form."~id)|replace("_", ".")~".after_glyphicon" %}
+
+    {% if beforeGlyphiconTransId|trans != beforeGlyphiconTransId
+          or afterGlyphiconTransId|trans != afterGlyphiconTransId
+    %}
+        <div class="input-group">
+            {% if beforeGlyphiconTransId|trans != beforeGlyphiconTransId %}
+                <span class="input-group-addon"><span class="glyphicon {{ beforeGlyphiconTransId|trans }}"></span></span>
+            {% endif %}
+            {{ parent() }}
+            {% if afterGlyphiconTransId|trans != afterGlyphiconTransId %}
+                <span class="input-group-addon"><span class="glyphicon {{ afterGlyphiconTransId|trans }}"></span></span>
+            {% endif %}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock textarea_widget %}
+
+{% block form_label %}
+    {% if label is not same as(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ ("form."~id~".label")|replace("_", ".")|trans }}</label>
+    {% endif %}
+{% endblock form_label %}
+
+{% block bs_form_input_group %}
+    {% set beforeGlyphiconTransId = ("form."~id)|replace("_", ".")~".before_glyphicon" %}
+    {% set afterGlyphiconTransId = ("form."~id)|replace("_", ".")~".after_glyphicon" %}
+    
+    <div class="input-group">
+        {% if beforeGlyphiconTransId|trans != beforeGlyphiconTransId %}
+            <span class="input-group-addon"><span class="glyphicon {{ beforeGlyphiconTransId|trans }}"></span></span>
+        {% endif %}
+        {% if compound %}
+            {{ block('form_widget_compound') }}
+        {% else %}
+            {{ block('form_widget_simple') }}
+        {% endif %}
+        {% if afterGlyphiconTransId|trans != afterGlyphiconTransId %}
+            <span class="input-group-addon"><span class="glyphicon {{ afterGlyphiconTransId|trans }}"></span></span>
+        {% endif %}
+    </div>
+{% endblock %}

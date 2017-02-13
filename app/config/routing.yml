@@ -1,0 +1,31 @@
+home:
+    path: /
+    defaults:
+        _controller: mkosolofski.site.form_bundle.controller.template_controller:render
+        template:    home.html.twig
+        template_vars:
+            topNavActive: Home
+        
+contact_get:
+    path: /contact
+    methods:  [GET]
+    defaults:
+        _controller: mkosolofski.site.form_bundle.controller.form_controller:render
+        template:    ::contact.html.twig
+        form: MKosolofski\Site\FormBundle\Form\ContactType
+        template_vars:
+            topNavActive: Contact
+
+blog:
+    path: /blog
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template:    ::blog.html.twig
+
+blog_ifttt_how_to_add_a_delay:
+    path: /blog/ifttt-how-to-add-a-delay-on-that
+    defaults:
+        _controller: mkosolofski.site.form_bundle.controller.template_controller:render
+        template:    ::blog/ifttt-how-to-add-a-delay-on-that.html.twig
+        template_vars:
+            topNavActive: Blog

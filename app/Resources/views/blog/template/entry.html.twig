@@ -1,0 +1,17 @@
+<div class="blogEntry">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <{% if titleTag is defined %}{{ titleTag }}{% else %}h1{% endif %} class="blogTitle">
+                {{ title }}
+            </{% if titleTag is defined %}{{ titleTag }}{% else %}h1{% endif %}>
+            &nbsp;
+            <div class="blogDate">
+                <span class="glyphicon glyphicon-time"></span>{{ date }}
+            </div>
+        </div>
+        <div class="panel-body">
+        {% block body %}{% endblock %}
+        </div>
+        {% if link is defined %}<div class="panel-footer"><a href="{{ link }}" class="btn btn-info">View</a></div>{% endif %}
+    </div>
+</div>

@@ -1,0 +1,4 @@
+services:
+#    m_kosolofski_site_doctrine.example:
+#        class: MKosolofski\Site\DoctrineBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

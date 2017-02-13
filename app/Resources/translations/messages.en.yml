@@ -1,0 +1,20 @@
+form:
+    contact:
+        company:
+            label: Company
+            before_glyphicon: glyphicon-briefcase
+        firstName:
+            label: First Name
+            before_glyphicon: glyphicon-user
+        lastName:
+            label: Last Name
+            before_glyphicon: glyphicon-user
+        email:
+            label: Email
+            before_glyphicon: glyphicon-envelope
+        subject:
+            label: Subject
+            before_glyphicon: glyphicon-bullhorn
+        message:
+            label: Message
+            before_glyphicon: glyphicon-pencil

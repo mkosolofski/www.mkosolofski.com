@@ -1,0 +1,37 @@
+{% htmlcompress %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"/>
+        <title>Matthew Kosolofski - Senior Software Engineer</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('faviconn.ico') }}" />
+        <script>var assets_version = '{{ assets_version }}', requirejs_requires = [];</script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" type="text/css"/>
+        {% block stylesheets %}{% endblock %}
+            {% stylesheets
+                'assets/less/site.less'
+                filter='less'
+                filter='uglifycss'
+            %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
+            {% endstylesheets %}
+        {% block javascripts %}
+            {% javascripts
+                'assets/js/vendor/require.js'
+                'assets/js/main.js'
+            %}
+                <script src="{{ asset_url }}" {% if environment != 'dev' %}async{% endif %}></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            {% include "::base/top-nav.html.twig" %}
+            {% block body %}{% endblock %}
+        </div>
+        {% include "::base/footer.html.twig" %}
+    </body>
+</html>
+{% endhtmlcompress %}

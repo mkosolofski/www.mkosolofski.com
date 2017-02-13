@@ -1,0 +1,8 @@
+{% extends '::blog/base.html.twig' %}
+{% block blog %}
+    {% embed "::blog/template/entry.html.twig" with {title:"Vim Basics!",date:"July 12, 2016"} %}
+        {% block body %}
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquam enim non pulvinar lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris quis augue lorem. Aliquam vestibulum egestas ullamcorper. Ut ut mol.
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

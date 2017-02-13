@@ -1,0 +1,96 @@
+{% extends '::blog/base.html.twig' %}
+{% block blog %}
+    {% embed "::blog/template/entry.html.twig" with {title:"IFTTT - How To Add A Delay On \"That\"",date:"October 12, 2016"} %}
+        {% block body %}
+            <p>
+            I am currently using IFTTT to interface my Amazon Echo with my Home8 system and ran into a scenario where I needed to introduce a delay on "that". My goal was to set my home alarm using Alexa with enough time to escape before the alarm sets. Unfortunately, IFTTT does not support delays and led me into developing the following solution.
+            </p>
+            <div class="text-center">
+                <div class="mt30 mb30">
+                    <image src="{{ asset('/assets/image/ifttt-alexa-maker.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+                    <p>
+                        If You say "Alexa trigger arm", then make a web request:
+                        </br>
+                        http://mywebserver.com/delay.php?event=arm_alarm&seconds=30&access_token=my_access_token
+                    </p>
+                </div>
+                <div class="glyphicon glyphicon-arrow-down"></div>
+                <div class="mt30 mb30">
+                    <image src="{{ asset('/assets/image/web-server.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+                    <p>
+                        Delay 30 seconds. Perform request to Maker with "arm_alarm" event
+                    </p>
+                </div>
+                <div class="glyphicon glyphicon-arrow-down"></div>
+                <div class="mt30 mb50">
+                    <image src="{{ asset('/assets/image/ifttt-maker-home8.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+                    <p>
+                        If Maker Event "arm_alarm", then arm system
+                    </p>
+                </div>
+            </div>
+            <h2>Putting It All Together</h3>
+            <div class="text-center mt30 mb30">
+                <image src="{{ asset('/assets/image/ifttt-alexa-maker.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+            </div>
+            <p>
+                Create a new recipe with "this" as Alexa and "that" as Maker. Maker should be configured as the following:
+            </p>
+            <p>
+                <b>URL:</b> http://YOUR_WEBSERVER_HERE/delay.php?seconds=30&event=arm_alarm&access_key=A_UNIQUE_STRING
+                <aside>
+                    Replace "YOUR_WEBSERVER_HERE" and "A_UNIQUE_STRING". "A_UNIQUE_STRING" will be used as a credential for running the webserver script and will become more apparent below.
+                </aside>
+            </p>
+            <p>
+                <b>METHOD:</b> GET
+            </p>
+            <p>
+                <b>BODY:</b> <i>leave this blank</i>
+            </p>
+            <div class="text-center mt50 mb30">
+                <image src="{{ asset('/assets/image/web-server.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+            </div>
+            <p>The following PHP 7 script should be run on a web server that has a static ip/dns. Copy the script into a file called "delay.php" into the root directory of your website.</p>
+            <p>
+                Update script defines:
+                <ul>
+                    <li>ACCESS_KEY - Set this to the value you set for the "acces_key" parameter in the web request url.</li
+                    <li>MAKER_API_KEY - Update this with your own Maker api key. You will be assigned one when subscribing to the Maker channel in IFTTT.</li>
+                    <li>MAX_DELAY - Specifies the max delay that can be specified via the "seconds" parameter in the web request. Currently set to 120 seconds.</li>
+                </ul>
+                <pre>
+<code>
+&lt;?php
+
+define('ACCESS_KEY', '');
+define('MAKER_API_KEY', '');
+define('MAX_DELAY', '120');
+
+$accessKey = $_GET['access_key'] ?? '';
+if (empty($accessKey) || $accessKey != ACCESS_KEY) return;
+
+$event = $_GET['event'] ?? '';
+if (empty($event)) return;
+
+$seconds = (int)($_GET['seconds'] ?? 0);
+if ($seconds > MAX_DELAY) $seconds = MAX_DELAY;
+
+sleep($seconds);
+
+exec('curl -X POST https://maker.ifttt.com/trigger/' . $event . '/with/key/' . MAKER_API_KEY);
+</code>
+                </pre>
+            </p>
+            <div class="text-center mt50 mb30">
+                <image src="{{ asset('/assets/image/ifttt-maker-home8.png') }}" alt="ifttt-alexa-maker" title="ifttt-alexa-maker"/>
+            </div>
+            <p>
+                Create a new recipe with "this" as Maker and "that" as Home8. Maker should be configured as the following:
+            </p>
+            <p>
+                <b>Event Name:</b> arm_alarm
+            </p>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

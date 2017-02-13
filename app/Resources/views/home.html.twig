@@ -1,0 +1,70 @@
+{% extends '::base.html.twig' %}
+{% block javascripts %}
+    <script>requirejs_requires.push('skills');</script>
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-md-5">
+            <p class="homeQuotePHPStart">
+                &lt;?php
+            </p>
+            <p class="homeQuotePHPEchoStart">
+                echo "
+            </p>
+            <p class="homeQuoteP1">
+                I am an application developer with over 12 years of experience in professionally building client and server side web solutions.
+            </p>
+            <p class="homeQuoteP2">
+                Software development is not considered work but is a passion that is enjoyed both at and outside of work.
+
+            </p>
+            <p class="homeQuotePHPEchoEnd">
+               ";
+            </p>
+        </div>
+        <div class="col-xs-12 col-md-2 text-center">
+            <img src="{{ asset('assets/image/matt.png') }}" alt="Matthew Kosolofski" class="homeMattImage"/>
+        </div>
+        <div class="visible-md visible-lg col-md-5">
+            <div id="skills">
+                <div>Linux</div>
+                <div>Apache</div>
+                <div>MYSQL</div>
+                <div>Mongo</div>
+                <div>PHP 5 &amp; 7</div>
+                <div>Behat</div>
+                <div>PHPUnit</div>
+                <div>Phake</div>
+                <div>PHPDoc</div>
+                <div>Google Tag Manager</div>
+                <div>CSS &amp; less</div>
+                <div>JavaScript</div>
+                <div>jQuery</div>
+                <div>Prototype</div>
+                <div>Mercurial</div>
+                <div>Git</div>
+                <div>Composer</div>
+                <div>Gearman</div>
+                <div>Google Analytics</div>
+                <div>Symfony 2 &amp; 3</div>
+                <div>Sauce Labs</div>
+                <div>Capistrano 2 &amp; 3</div>
+                <div>Bash</div>
+                <div>VIM</div>
+                <div>Jenkins</div>
+                <div>Bootstrap</div>
+                <div>RequireJS</div>
+            </div>
+        </div>
+    </div>
+    <h1 class="text-center">Recently Blogged</h1>
+    {% embed "::blog/template/entry.html.twig" with {title:"IFTTT - How To Add A Delay On \"That\"",date:"October 12, 2016",link:url("blog_ifttt_how_to_add_a_delay")} %}
+        {% block body %}
+            <p>
+            I am currently using IFTTT to interface my Amazon Echo with my Home8 system and ran into a scenario where I needed to introduce a delay on "that". My goal was to set my home alarm using Alexa with enough time to escape before the alarm sets. Unfortunately, IFTTT does not support delays and led me into developing a custom solution.
+            </p>
+        {% endblock %}
+    {% endembed %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-10">
+            {% embed "::blog/template/entry.html.twig" with {title:"Vim Basics!", date:"July 12, 2016", link:url("blog_installing_vim"), id:"entry1"} %}
+                {% block body %}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquam enim non pulvinar lacinia. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris quis augue lorem. Aliquam vestibulum egestas ullamcorper. Ut ut mol.
+                {% endblock %}
+            {% endembed %}
+            {% embed "::blog/template/entry.html.twig" with {title:"Capistrano 3 & CI!", date:"July 02, 2016", link:url("blog_installing_vim"), id:"entry2"} %}
+                {% block body %}
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquam evestibulum egestas ullamcorper. Ut ut mol.
+                {% endblock %}
+            {% endembed %}
+        </div>
+        <div class="col-md-2 text-center blogListing">
+            <h1>Blogged</h1>
+            <a href="#entry1">Vim Basics!</a>
+            <a href="#entry2">Capistrano 3 & CI!</a>
+        </div>
+    </div>
+{% endblock %}

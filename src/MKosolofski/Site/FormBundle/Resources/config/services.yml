@@ -1,0 +1,13 @@
+services:
+    mkosolofski.site.form_bundle.controller.form_controller:
+        class: MKosolofski\Site\FormBundle\Controller\FormController
+        arguments: ["@request_stack", "@templating", "@form.factory"]
+
+    mkosolofski.site.form_bundle.controller.template_controller:
+        class: MKosolofski\Site\FormBundle\Controller\TemplateController
+        arguments: ["@request_stack", "@templating"]
+    
+    mkosolofski.nochso.htmlcompresstwig.extension:
+        class: nochso\HtmlCompressTwig\Extension
+        tags:
+            - { name: 'twig.extension' }
